@@ -7,7 +7,6 @@ namespace TriviaManage
 	public class QuestionInfo
 	{
 		/// <summary>
-		/// Class Demo
 		/// The _mobile service client dynamically instanciated
 		/// </summary>
 		private MobileServiceHelper _mobileServiceClient;
@@ -20,7 +19,7 @@ namespace TriviaManage
 			// Get a reference to the mobile service client
 			_mobileServiceClient = MobileServiceHelper.DefaultService;
 
-			// Initialize the _QuestionItemTable with a default query that retrieves all tasks
+			// Initialize the _QuestionItemTable with a default query that retrieves all questions.
 			_questionItemTable = _mobileServiceClient.ServiceClient.GetTable<QuestionItem>();
 		}
 
@@ -30,23 +29,24 @@ namespace TriviaManage
 		private IMobileServiceTable<QuestionItem> _questionItemTable;
 
 		/// <summary>
-		/// Container to hold the task items from the mobile service
+		/// Container to hold the question items from the mobile service
 		/// </summary>
 		private MobileServiceCollection<QuestionItem, QuestionItem> _questionItemList;
 
 		/// <summary>
-		/// Refreshes the tasks.
+		/// Refreshes the questions.
 		/// </summary>
 		/// <returns>Task.</returns>
 		public async Task RefreshQuestions()
 		{
 			QuestionList = await _questionItemTable.ToCollectionAsync();
 		}
+
 		/// <summary>
-		/// Gets or sets the student list.
+		/// Gets or sets the question list.
 		/// </summary>
 		/// <value>
-		/// The student list.
+		/// The question list.
 		/// </value>
 		public MobileServiceCollection<QuestionItem, QuestionItem> QuestionList
 		{
@@ -57,11 +57,10 @@ namespace TriviaManage
 			}
 		}
 
-
 		/// <summary>
-		/// Saves or updates the the specified task item based on the CurrentUIMode
+		/// Saves or updates the the specified question item based on the CurrentUIMode
 		/// </summary>
-		/// <param name="QuestionItem">The task item.</param>
+		/// <param name="QuestionItem">The question item.</param>
 		/// <returns>Task.</returns>
 		async internal Task Save(QuestionItem questionItem)
 		{
@@ -81,7 +80,7 @@ namespace TriviaManage
 		public UIModes CurrentUIMode { get; set; }
 
 		/// <summary>
-		/// Adds the task
+		/// Adds the question
 		/// </summary>
 		/// <returns>Task.</returns>
 		async internal Task AddQuestion(QuestionItem questionItem)
@@ -90,7 +89,7 @@ namespace TriviaManage
 		}
 
 		/// <summary>
-		/// Updates the task
+		/// Updates the question
 		/// </summary>
 		/// <returns>Task.</returns>
 		async internal Task UpdateQuestion(QuestionItem questionItem)
@@ -99,7 +98,7 @@ namespace TriviaManage
 		}
 
 		/// <summary>
-		/// Deletes the task then refreshes the task list
+		/// Deletes the question then refreshes the question list
 		/// </summary>
 		async internal Task DeleteQuestion(QuestionItem questionItem)
 		{

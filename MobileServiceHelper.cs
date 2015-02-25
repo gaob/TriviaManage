@@ -5,13 +5,11 @@ using System.Threading;
 
 namespace TriviaManage
 {
-
 	/// <summary>
 	/// Dynamically instancated single instance of the Mobile Service client
 	/// </summary>
 	public class MobileServiceHelper
 	{
-
 		private static MobileServiceHelper _instance;
 
 		const string applicationURL = @"https://dotnet2.azure-mobile.net/";
@@ -26,10 +24,7 @@ namespace TriviaManage
 		{
 			CurrentPlatform.Init();
 
-			// Only needed when using offline features.
-			// SQLitePCL.CurrentPlatform.Init();
-
-			// Initialize the Mobile Service client with your URL and key
+			// Initialize the Mobile Service client with a handler to insert master key.
 			_client = new MobileServiceClient (applicationURL, applicationKey, new MyHandler ());
 		}
 
@@ -68,11 +63,16 @@ namespace TriviaManage
 			}
 		}
 
+		/// <summary>
+		/// Customized Handler to add master key to every request.
+		/// </summary>
 		public class MyHandler : DelegatingHandler
 		{
 			protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
 			{
+				//Add the master key before sending.
 				request.Headers.Add("X-ZUMO-MASTER", "ZvZIAXfWSLPPwvIeipxIyLfKYmPYoM27");
+
 				var response = await base.SendAsync(request, cancellationToken);
 				return response;
 			}

@@ -61,6 +61,7 @@ namespace TriviaManage
 		{
 			base.ViewWillAppear(animated);
 
+			//Pre-set the textfields with current question.
 			Ttext.Text = currentQuestion.QuestionText;
 			Tone.Text = currentQuestion.AnswerOne;
 			Ttwo.Text = currentQuestion.AnswerTwo;
@@ -69,11 +70,19 @@ namespace TriviaManage
 			Tidentifier.Text = currentQuestion.Identifier;
 		}
 
+		/// <summary>
+		/// Delete button action.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
 		partial void Bdelete_TouchUpInside (UIButton sender)
 		{
 			Delegate.DeleteQuestion(currentQuestion);
 		}
 
+		/// <summary>
+		/// Save button action.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
 		partial void Bsave_TouchUpInside (UIButton sender)
 		{
 			currentQuestion.QuestionText = Ttext.Text;
@@ -86,6 +95,11 @@ namespace TriviaManage
 			Delegate.SaveQuestion(currentQuestion);
 		}
 
+		/// <summary>
+		/// Sets the question and delegate, used externally.
+		/// </summary>
+		/// <param name="d">D.</param>
+		/// <param name="question">Question.</param>
 		public void SetQuestion(MasterViewController d, QuestionItem question)
 		{
 			Delegate = d;
