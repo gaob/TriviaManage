@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Threading.Tasks;
 
 namespace TriviaManage
 {
@@ -11,11 +12,14 @@ namespace TriviaManage
 	{
 		DataSource dataSource;
 
+		private QuestionInfo theQuestionInfo;
+
 		public MasterViewController (IntPtr handle) : base (handle)
 		{
 			Title = NSBundle.MainBundle.LocalizedString ("Master", "Master");
 
 			// Custom initialization
+			theQuestionInfo = new QuestionInfo();
 		}
 
 		void AddNewItem (object sender, EventArgs args)
@@ -54,6 +58,20 @@ namespace TriviaManage
 
 			// Refresh the task list.
 			//await RefreshAsync(false, true);
+		}
+
+		private async Task RefreshAsync(bool pullDownActivated = false, bool forceProgressIndicator = false)
+		{
+			RefreshControl.BeginRefreshing();
+
+			Task resultTask = theQuestionInfo.RefreshQuestions();
+
+			//await UIUtilities.ShowIndeterminateProgressIfNecessary(resultTask, "Refreshing Questions...", pullDownActivated, forceProgressIndicator);
+
+			RefreshControl.EndRefreshing();
+
+			TableView.ReloadData();
+
 		}
 
 		class DataSource : UITableViewSource

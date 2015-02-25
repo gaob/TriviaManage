@@ -38,9 +38,9 @@ namespace TriviaManage
 		/// Refreshes the tasks.
 		/// </summary>
 		/// <returns>Task.</returns>
-		public async Task RefreshTasks()
+		public async Task RefreshQuestions()
 		{
-			TaskList = await _questionItemTable.ToCollectionAsync();
+			QuestionList = await _questionItemTable.ToCollectionAsync();
 		}
 		/// <summary>
 		/// Gets or sets the student list.
@@ -48,7 +48,7 @@ namespace TriviaManage
 		/// <value>
 		/// The student list.
 		/// </value>
-		public MobileServiceCollection<QuestionItem, QuestionItem> TaskList
+		public MobileServiceCollection<QuestionItem, QuestionItem> QuestionList
 		{
 			get { return _questionItemList; }
 			set
@@ -67,10 +67,10 @@ namespace TriviaManage
 		{
 			if (CurrentUIMode == UIModes.Adding)
 			{
-				await AddTask(questionItem);
+				await AddQuestion(questionItem);
 			}else if (CurrentUIMode == UIModes.Editing)
 			{
-				await UpdateTask(questionItem);
+				await UpdateQuestion(questionItem);
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace TriviaManage
 		/// Adds the task
 		/// </summary>
 		/// <returns>Task.</returns>
-		async internal Task AddTask(QuestionItem questionItem)
+		async internal Task AddQuestion(QuestionItem questionItem)
 		{
 			await _questionItemTable.InsertAsync(questionItem);
 		}
@@ -93,7 +93,7 @@ namespace TriviaManage
 		/// Updates the task
 		/// </summary>
 		/// <returns>Task.</returns>
-		async internal Task UpdateTask(QuestionItem questionItem)
+		async internal Task UpdateQuestion(QuestionItem questionItem)
 		{
 			await _questionItemTable.UpdateAsync(questionItem);
 		}
@@ -101,10 +101,10 @@ namespace TriviaManage
 		/// <summary>
 		/// Deletes the task then refreshes the task list
 		/// </summary>
-		async internal Task DeleteTask(QuestionItem questionItem)
+		async internal Task DeleteQuestion(QuestionItem questionItem)
 		{
 			await _questionItemTable.DeleteAsync(questionItem);
-			await RefreshTasks();
+			await RefreshQuestions();
 		}
 	}
 }
