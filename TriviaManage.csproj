@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -125,9 +125,9 @@
     <Compile Include="DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuestionItem.cs" />
     <Compile Include="MobileServiceHelper.cs" />
     <Compile Include="QuestionDetailViewController.cs" />
+    <Compile Include="QuestionItem.cs" />
     <Compile Include="QuestionDetailViewController.designer.cs">
       <DependentUpon>QuestionDetailViewController.cs</DependentUpon>
     </Compile>

@@ -45,6 +45,15 @@ namespace TriviaManage
 			NavigationItem.RightBarButtonItem = addButton;
 
 			TableView.Source = dataSource = new DataSource (this);
+
+			RefreshControl.ValueChanged += async (sender, e) =>
+			{
+				//await RefreshAsync(true);
+			};
+
+
+			// Refresh the task list.
+			//await RefreshAsync(false, true);
 		}
 
 		class DataSource : UITableViewSource
