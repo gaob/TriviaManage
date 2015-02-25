@@ -3,10 +3,12 @@ using BigTed;
 
 namespace TriviaManage
 {
+	/// <summary>
+	/// User interface utilities to use BTProgressHUD component.
+	/// </summary>
 	public static class UIUtilities
 	{
 		/// <summary>
-		/// Class Demo
 		/// Shows the indeterminate progress if necessary
 		/// Completes the execution of the provided executingTask by awaiting on it.
 		/// </summary>
@@ -56,6 +58,5 @@ namespace TriviaManage
 			}
 
 		}
-
 	}
 }

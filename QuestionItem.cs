@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace TriviaManage
 {
+	/// <summary>
+	/// Question item Json object.
+	/// </summary>
 	public class QuestionItem
 	{
 		private string _id;
