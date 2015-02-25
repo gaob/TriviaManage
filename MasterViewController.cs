@@ -38,37 +38,39 @@ namespace TriviaManage
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		public override void ViewDidLoad ()
+		public override async void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
+			TableView.Source = dataSource = new DataSource (this);
+
 			// Perform any additional setup after loading the view, typically from a nib.
 			NavigationItem.LeftBarButtonItem = EditButtonItem;
 
 			var addButton = new UIBarButtonItem (UIBarButtonSystemItem.Add, AddNewItem);
 			NavigationItem.RightBarButtonItem = addButton;
 
-			TableView.Source = dataSource = new DataSource (this);
-
+			/*
 			RefreshControl.ValueChanged += async (sender, e) =>
 			{
-				//await RefreshAsync(true);
+				await RefreshAsync(true);
 			};
+			*/
 
 
 			// Refresh the task list.
-			//await RefreshAsync(false, true);
+			await RefreshAsync(false, true);
 		}
 
 		private async Task RefreshAsync(bool pullDownActivated = false, bool forceProgressIndicator = false)
 		{
-			RefreshControl.BeginRefreshing();
+			//RefreshControl.BeginRefreshing();
 
-			Task resultTask = theQuestionInfo.RefreshQuestions();
+			await theQuestionInfo.RefreshQuestions();
 
 			//await UIUtilities.ShowIndeterminateProgressIfNecessary(resultTask, "Refreshing Questions...", pullDownActivated, forceProgressIndicator);
 
-			RefreshControl.EndRefreshing();
+			//RefreshControl.EndRefreshing();
 
 			TableView.ReloadData();
 
@@ -155,12 +157,31 @@ namespace TriviaManage
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
 			if (segue.Identifier == "TaskSegue") {
+				var theController = segue.DestinationViewController as QuestionDetailViewController;
+
+				if (theController != null) {
+					// This is the current table
+					var source = TableView.Source as RootTableSource;
+
+					// This is the row selected by the user
+					var rowPath = TableView.IndexPathForSelectedRow;
+					var item = source.GetItem(rowPath.Row);
+
+					// Tell the view model the user is editing
+					theQuestionInfo.CurrentUIMode = UIModes.Editing;
+
+					// Set the task in the detail view to the task the user selected
+					// Is defined on the TaskDetailViewController
+					//theController.SetTask(this, item); 
+				}
+
+				/* to be deleted
 				var indexPath = TableView.IndexPathForSelectedRow;
 				var item = dataSource.Objects [indexPath.Row];
 
-				//((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
+				((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
+				*/
 			}
 		}
 	}
 }
-
