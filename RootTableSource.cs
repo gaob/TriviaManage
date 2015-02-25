@@ -31,7 +31,7 @@ namespace TriviaManage
 			var cell = tableView.DequeueReusableCell(cellIdentifier);
 
 			// now set the properties as normal
-			cell.TextLabel.Text = _questionInfo.QuestionList[indexPath.Row].questionText;
+			cell.TextLabel.Text = (indexPath.Row + 1).ToString() + ". " + _questionInfo.QuestionList[indexPath.Row].questionText;
 
 			/* to be deleted
 			if (_questionInfo.QuestionList[indexPath.Row].CompletedFlag)

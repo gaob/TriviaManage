@@ -66,9 +66,9 @@ namespace TriviaManage
 		{
 			//RefreshControl.BeginRefreshing();
 
-			await theQuestionInfo.RefreshQuestions();
+			Task resultTask = theQuestionInfo.RefreshQuestions();
 
-			//await UIUtilities.ShowIndeterminateProgressIfNecessary(resultTask, "Refreshing Questions...", pullDownActivated, forceProgressIndicator);
+			await UIUtilities.ShowIndeterminateProgressIfNecessary(resultTask, "Refreshing Questions...", pullDownActivated, forceProgressIndicator);
 
 			//RefreshControl.EndRefreshing();
 
@@ -174,14 +174,62 @@ namespace TriviaManage
 					// Is defined on the TaskDetailViewController
 					//theController.SetTask(this, item); 
 				}
-
-				/* to be deleted
-				var indexPath = TableView.IndexPathForSelectedRow;
-				var item = dataSource.Objects [indexPath.Row];
-
-				((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
-				*/
 			}
+		}
+
+		public async void SaveTask(QuestionItem questionItem)
+		{
+			try
+			{
+
+				Task saveTask = theQuestionInfo.Save(questionItem);
+
+				if (theQuestionInfo.CurrentUIMode == UIModes.Adding)
+				{
+
+					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Adding task: [{0}] ...", questionItem.questionText));
+				}
+				else
+				{
+					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Updating task: [{0}] ...", questionItem.questionText));
+				}
+
+
+				await RefreshAsync();
+
+
+			}
+			finally
+			{
+				NavigationController.PopViewControllerAnimated(true);
+			}
+		}
+
+		public async void DeleteTask(QuestionItem questionItem)
+		{
+			try
+			{
+				Task deleteQuestion = theQuestionInfo.DeleteQuestion(questionItem);
+				await UIUtilities.ShowIndeterminateProgressIfNecessary(deleteQuestion, string.Format("Deleting task: [{0}] ...", questionItem.questionText));
+
+			}
+			finally
+			{
+				NavigationController.PopViewControllerAnimated(true);
+			}
+		}
+
+		public void CreateTask(object sender, EventArgs args)
+		{
+			// first, add the task to the underlying data
+			var newQuestionItem = new QuestionItem();
+
+			theQuestionInfo.CurrentUIMode = UIModes.Adding;
+
+			// then open the detail view to edit it
+			var detail = Storyboard.InstantiateViewController("QuestionDetailViewController") as QuestionDetailViewController;
+			//detail.SetTask(this, newQuestionItem);
+			NavigationController.PushViewController(detail, true);
 		}
 	}
 }
