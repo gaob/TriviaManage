@@ -10,8 +10,6 @@ namespace TriviaManage
 {
 	public partial class MasterViewController : UITableViewController
 	{
-		DataSource dataSource;
-
 		private QuestionInfo theQuestionInfo;
 
 		public MasterViewController (IntPtr handle) : base (handle)
@@ -22,58 +20,33 @@ namespace TriviaManage
 			theQuestionInfo = new QuestionInfo();
 		}
 
-		void AddNewItem (object sender, EventArgs args)
-		{
-			dataSource.Objects.Insert (0, DateTime.Now);
-
-			using (var indexPath = NSIndexPath.FromRowSection (0, 0))
-				TableView.InsertRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Automatic);
-		}
-
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
-
 		public override async void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			TableView.Source = dataSource = new DataSource (this);
+			TableView.Source = new DataSource (this);
 
-			// Perform any additional setup after loading the view, typically from a nib.
-			NavigationItem.LeftBarButtonItem = EditButtonItem;
-
+			//Add button to add question.
 			var addButton = new UIBarButtonItem (UIBarButtonSystemItem.Add, CreateQuestion);
 			NavigationItem.RightBarButtonItem = addButton;
 
-			/*
-			RefreshControl.ValueChanged += async (sender, e) =>
-			{
-				await RefreshAsync(true);
-			};
-			*/
-
-
-			// Refresh the task list.
+			// Refresh the question list.
 			await RefreshAsync(false, true);
 		}
 
+		/// <summary>
+		/// Refreshs the table.
+		/// </summary>
+		/// <returns>The async.</returns>
+		/// <param name="pullDownActivated">If set to <c>true</c> pull down activated.</param>
+		/// <param name="forceProgressIndicator">If set to <c>true</c> force progress indicator.</param>
 		private async Task RefreshAsync(bool pullDownActivated = false, bool forceProgressIndicator = false)
 		{
-			//RefreshControl.BeginRefreshing();
-
 			Task resultTask = theQuestionInfo.RefreshQuestions();
 
 			await UIUtilities.ShowIndeterminateProgressIfNecessary(resultTask, "Refreshing Questions...", pullDownActivated, forceProgressIndicator);
 
-			//RefreshControl.EndRefreshing();
-
 			TableView.ReloadData();
-
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -138,6 +111,11 @@ namespace TriviaManage
 			}
 		}
 
+		/// <summary>
+		/// Function to be called after clicking on a question.
+		/// </summary>
+		/// <param name="segue">Segue.</param>
+		/// <param name="sender">Sender.</param>
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
 			if (segue.Identifier == "TaskSegue") {
@@ -154,23 +132,24 @@ namespace TriviaManage
 					// Tell the view model the user is editing
 					theQuestionInfo.CurrentUIMode = UIModes.Editing;
 
-					// Set the task in the detail view to the task the user selected
-					// Is defined on the TaskDetailViewController
+					// Set the question in the detail view to the question the user selected
 					theController.SetQuestion(this, item); 
 				}
 			}
 		}
 
+		/// <summary>
+		/// Interface to save the question.
+		/// </summary>
+		/// <param name="questionItem">Question item.</param>
 		public async void SaveQuestion(QuestionItem questionItem)
 		{
 			try
 			{
-
 				Task saveTask = theQuestionInfo.Save(questionItem);
 
 				if (theQuestionInfo.CurrentUIMode == UIModes.Adding)
 				{
-
 					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Adding task: [{0}] ...", questionItem.QuestionText));
 				}
 				else
@@ -178,10 +157,7 @@ namespace TriviaManage
 					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Updating task: [{0}] ...", questionItem.QuestionText));
 				}
 
-
 				await RefreshAsync();
-
-
 			}
 			finally
 			{
@@ -189,13 +165,16 @@ namespace TriviaManage
 			}
 		}
 
+		/// <summary>
+		/// Interface to delete the question.
+		/// </summary>
+		/// <param name="questionItem">Question item.</param>
 		public async void DeleteQuestion(QuestionItem questionItem)
 		{
 			try
 			{
 				Task deleteQuestion = theQuestionInfo.DeleteQuestion(questionItem);
 				await UIUtilities.ShowIndeterminateProgressIfNecessary(deleteQuestion, string.Format("Deleting task: [{0}] ...", questionItem.QuestionText));
-
 			}
 			finally
 			{
@@ -203,9 +182,14 @@ namespace TriviaManage
 			}
 		}
 
+		/// <summary>
+		/// Interface to create the question.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
 		public void CreateQuestion(object sender, EventArgs args)
 		{
-			// first, add the task to the underlying data
+			// first, add the question to the underlying data
 			var newQuestionItem = new QuestionItem();
 
 			theQuestionInfo.CurrentUIMode = UIModes.Adding;
