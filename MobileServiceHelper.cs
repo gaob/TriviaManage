@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 
-namespace TaskApp
+namespace TriviaManage
 {
 
 	/// <summary>
