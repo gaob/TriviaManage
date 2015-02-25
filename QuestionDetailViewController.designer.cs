@@ -11,8 +11,8 @@ using System.CodeDom.Compiler;
 
 namespace TriviaManage
 {
-	[Register ("MasterViewController")]
-	partial class MasterViewController
+	[Register ("QuestionDetailViewController")]
+	partial class QuestionDetailViewController
 	{
 		void ReleaseDesignerOutlets ()
 		{

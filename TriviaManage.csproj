@@ -127,6 +127,10 @@
     </Compile>
     <Compile Include="QuestionItem.cs" />
     <Compile Include="MobileServiceHelper.cs" />
+    <Compile Include="QuestionDetailViewController.cs" />
+    <Compile Include="QuestionDetailViewController.designer.cs">
+      <DependentUpon>QuestionDetailViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
