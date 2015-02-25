@@ -1,4 +1,7 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace TriviaManage
 {
@@ -27,8 +30,7 @@ namespace TriviaManage
 			// SQLitePCL.CurrentPlatform.Init();
 
 			// Initialize the Mobile Service client with your URL and key
-			_client = new MobileServiceClient(applicationURL, applicationKey);
-
+			_client = new MobileServiceClient (applicationURL, applicationKey, new MyHandler ());
 		}
 
 		/// <summary>
@@ -66,5 +68,14 @@ namespace TriviaManage
 			}
 		}
 
+		public class MyHandler : DelegatingHandler
+		{
+			protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+			{
+				request.Headers.Add("X-ZUMO-MASTER", "ZvZIAXfWSLPPwvIeipxIyLfKYmPYoM27");
+				var response = await base.SendAsync(request, cancellationToken);
+				return response;
+			}
+		}
 	}
 }
