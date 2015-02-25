@@ -128,11 +128,11 @@ namespace TriviaManage
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
-			if (segue.Identifier == "showDetail") {
+			if (segue.Identifier == "TaskSegue") {
 				var indexPath = TableView.IndexPathForSelectedRow;
 				var item = dataSource.Objects [indexPath.Row];
 
-				((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
+				//((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
 			}
 		}
 	}

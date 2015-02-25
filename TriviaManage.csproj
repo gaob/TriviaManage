@@ -121,10 +121,6 @@
     <Compile Include="MasterViewController.designer.cs">
       <DependentUpon>MasterViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="DetailViewController.cs" />
-    <Compile Include="DetailViewController.designer.cs">
-      <DependentUpon>DetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="MobileServiceHelper.cs" />
     <Compile Include="QuestionDetailViewController.cs" />
     <Compile Include="QuestionItem.cs" />
