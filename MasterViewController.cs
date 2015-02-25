@@ -16,7 +16,7 @@ namespace TriviaManage
 
 		public MasterViewController (IntPtr handle) : base (handle)
 		{
-			Title = NSBundle.MainBundle.LocalizedString ("Master", "Master");
+			Title = NSBundle.MainBundle.LocalizedString ("TriviaManage", "TriviaManage");
 
 			// Custom initialization
 			theQuestionInfo = new QuestionInfo();
@@ -47,7 +47,7 @@ namespace TriviaManage
 			// Perform any additional setup after loading the view, typically from a nib.
 			NavigationItem.LeftBarButtonItem = EditButtonItem;
 
-			var addButton = new UIBarButtonItem (UIBarButtonSystemItem.Add, AddNewItem);
+			var addButton = new UIBarButtonItem (UIBarButtonSystemItem.Add, CreateQuestion);
 			NavigationItem.RightBarButtonItem = addButton;
 
 			/*
@@ -136,22 +136,6 @@ namespace TriviaManage
 					// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 				}
 			}
-
-			/*
-			// Override to support rearranging the table view.
-			public override void MoveRow (UITableView tableView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
-			{
-			}
-			*/
-
-			/*
-			// Override to support conditional rearranging of the table view.
-			public override bool CanMoveRow (UITableView tableView, NSIndexPath indexPath)
-			{
-				// Return false if you do not want the item to be re-orderable.
-				return true;
-			}
-			*/
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
@@ -172,12 +156,12 @@ namespace TriviaManage
 
 					// Set the task in the detail view to the task the user selected
 					// Is defined on the TaskDetailViewController
-					//theController.SetTask(this, item); 
+					theController.SetQuestion(this, item); 
 				}
 			}
 		}
 
-		public async void SaveTask(QuestionItem questionItem)
+		public async void SaveQuestion(QuestionItem questionItem)
 		{
 			try
 			{
@@ -205,7 +189,7 @@ namespace TriviaManage
 			}
 		}
 
-		public async void DeleteTask(QuestionItem questionItem)
+		public async void DeleteQuestion(QuestionItem questionItem)
 		{
 			try
 			{
@@ -219,7 +203,7 @@ namespace TriviaManage
 			}
 		}
 
-		public void CreateTask(object sender, EventArgs args)
+		public void CreateQuestion(object sender, EventArgs args)
 		{
 			// first, add the task to the underlying data
 			var newQuestionItem = new QuestionItem();
@@ -228,7 +212,7 @@ namespace TriviaManage
 
 			// then open the detail view to edit it
 			var detail = Storyboard.InstantiateViewController("QuestionDetailViewController") as QuestionDetailViewController;
-			//detail.SetTask(this, newQuestionItem);
+			detail.SetQuestion(this, newQuestionItem);
 			NavigationController.PushViewController(detail, true);
 		}
 	}

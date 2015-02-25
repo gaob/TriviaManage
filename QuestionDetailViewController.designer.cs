@@ -46,6 +46,14 @@ namespace TriviaManage
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UITextField Ttwo { get; set; }
 
+		[Action ("Bdelete_TouchUpInside:")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Bdelete_TouchUpInside (UIButton sender);
+
+		[Action ("Bsave_TouchUpInside:")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Bsave_TouchUpInside (UIButton sender);
+
 		void ReleaseDesignerOutlets ()
 		{
 			if (Bdelete != null) {
