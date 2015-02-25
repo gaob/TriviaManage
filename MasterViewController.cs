@@ -171,11 +171,11 @@ namespace TriviaManage
 				if (theQuestionInfo.CurrentUIMode == UIModes.Adding)
 				{
 
-					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Adding task: [{0}] ...", questionItem.questionText));
+					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Adding task: [{0}] ...", questionItem.QuestionText));
 				}
 				else
 				{
-					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Updating task: [{0}] ...", questionItem.questionText));
+					await UIUtilities.ShowIndeterminateProgressIfNecessary(saveTask, string.Format("Updating task: [{0}] ...", questionItem.QuestionText));
 				}
 
 
@@ -194,7 +194,7 @@ namespace TriviaManage
 			try
 			{
 				Task deleteQuestion = theQuestionInfo.DeleteQuestion(questionItem);
-				await UIUtilities.ShowIndeterminateProgressIfNecessary(deleteQuestion, string.Format("Deleting task: [{0}] ...", questionItem.questionText));
+				await UIUtilities.ShowIndeterminateProgressIfNecessary(deleteQuestion, string.Format("Deleting task: [{0}] ...", questionItem.QuestionText));
 
 			}
 			finally

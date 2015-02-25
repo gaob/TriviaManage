@@ -61,12 +61,12 @@ namespace TriviaManage
 		{
 			base.ViewWillAppear(animated);
 
-			Ttext.Text = currentQuestion.questionText;
-			Tone.Text = currentQuestion.answerOne;
-			Ttwo.Text = currentQuestion.answerTwo;
-			Tthree.Text = currentQuestion.answerThree;
-			Tfour.Text = currentQuestion.answerFour;
-			Tidentifier.Text = currentQuestion.identifier;
+			Ttext.Text = currentQuestion.QuestionText;
+			Tone.Text = currentQuestion.AnswerOne;
+			Ttwo.Text = currentQuestion.AnswerTwo;
+			Tthree.Text = currentQuestion.AnswerThree;
+			Tfour.Text = currentQuestion.AnswerFour;
+			Tidentifier.Text = currentQuestion.Identifier;
 		}
 
 		partial void Bdelete_TouchUpInside (UIButton sender)
@@ -76,12 +76,12 @@ namespace TriviaManage
 
 		partial void Bsave_TouchUpInside (UIButton sender)
 		{
-			currentQuestion.questionText = Ttext.Text;
-			currentQuestion.answerOne = Tone.Text;
-			currentQuestion.answerTwo = Ttwo.Text;
-			currentQuestion.answerThree = Tthree.Text;
-			currentQuestion.answerFour = Tfour.Text;
-			currentQuestion.identifier = Tidentifier.Text;
+			currentQuestion.QuestionText = Ttext.Text;
+			currentQuestion.AnswerOne = Tone.Text;
+			currentQuestion.AnswerTwo = Ttwo.Text;
+			currentQuestion.AnswerThree = Tthree.Text;
+			currentQuestion.AnswerFour = Tfour.Text;
+			currentQuestion.Identifier = Tidentifier.Text;
 
 			Delegate.SaveQuestion(currentQuestion);
 		}

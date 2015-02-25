@@ -20,7 +20,7 @@ namespace TriviaManage
 		private string _text;
 
 		[JsonProperty(PropertyName = "questionText")]
-		public string questionText
+		public string QuestionText
 		{
 			get { return _text; }
 			set
@@ -32,7 +32,7 @@ namespace TriviaManage
 		private string _one;
 
 		[JsonProperty(PropertyName = "answerOne")]
-		public string answerOne
+		public string AnswerOne
 		{
 			get { return _one; }
 			set
@@ -44,7 +44,7 @@ namespace TriviaManage
 		private string _two;
 
 		[JsonProperty(PropertyName = "answerTwo")]
-		public string answerTwo
+		public string AnswerTwo
 		{
 			get { return _two; }
 			set
@@ -56,7 +56,7 @@ namespace TriviaManage
 		private string _three;
 
 		[JsonProperty(PropertyName = "answerThree")]
-		public string answerThree
+		public string AnswerThree
 		{
 			get { return _three; }
 			set
@@ -68,7 +68,7 @@ namespace TriviaManage
 		private string _four;
 
 		[JsonProperty(PropertyName = "answerFour")]
-		public string answerFour
+		public string AnswerFour
 		{
 			get { return _four; }
 			set
@@ -80,7 +80,7 @@ namespace TriviaManage
 		private string _identifier;
 
 		[JsonProperty(PropertyName = "identifier")]
-		public string identifier
+		public string Identifier
 		{
 			get { return _identifier; }
 			set
