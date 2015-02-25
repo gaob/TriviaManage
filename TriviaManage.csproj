@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="QuestionInfo.cs" />
     <Compile Include="UIModes.cs" />
+    <Compile Include="RootTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

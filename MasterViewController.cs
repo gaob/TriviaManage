@@ -74,6 +74,14 @@ namespace TriviaManage
 
 		}
 
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+
+			// Passing the collection to the source and assigning it to the table view
+			TableView.Source = new RootTableSource(theQuestionInfo);
+		}
+
 		class DataSource : UITableViewSource
 		{
 			static readonly NSString CellIdentifier = new NSString ("Cell");
