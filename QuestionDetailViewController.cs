@@ -85,6 +85,12 @@ namespace TriviaManage
 		/// <param name="sender">Sender.</param>
 		partial void Bsave_TouchUpInside (UIButton sender)
 		{
+			if (Tidentifier.Text != "1" && Tidentifier.Text != "2" &&
+				Tidentifier.Text != "3" && Tidentifier.Text != "4") {
+				Tidentifier.Text = "Answer needs to be 1, 2, 3 or 4!";
+				return;
+			}
+
 			currentQuestion.QuestionText = Ttext.Text;
 			currentQuestion.AnswerOne = Tone.Text;
 			currentQuestion.AnswerTwo = Ttwo.Text;
